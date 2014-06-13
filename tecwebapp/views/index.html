@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="iso-8859-1" />
+		<title>University Search</title>
+		<link rel="stylesheet" href="/bootstrap/css/bootstrap-responsive.min.css">
+		<link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
+		<link rel="shortcut icon" href="../favicon.ico">
+		<link rel="stylesheet" type="text/css" href="/bootstrap/css/demo.css" />
+		<link rel="stylesheet" type="text/css" href="/bootstrap/css/component.css" />
+		<link rel="stylesheet" type="text/css" href="/bootstrap/css/home.css" />
+		<script src="/bootstrap/js/jquery-2.1.1.min.js"></script>
+		<script src="/bootstrap/js/bootstrap.min.js"></script>
+		<script src="/bootstrap/js/modernizr.custom.js"></script>
+	</head>
+	<body>
+		<div class="container-new">
+			<div id="splitlayout" class="splitlayout">
+				<div class="intro">
+					<div class="side side-left">
+						<header class="codropsheader clearfix">
+							<h1>University Search</h1>
+						</header>
+							
+						<div class="intro-content">
+
+							<div class="profile"><form action="" role="form">
+								<div id="carousel1" class="carousel slide">
+							      <!-- Carousel items -->
+							      <div class="carousel-inner carousel-photo">
+							        <div class="active item">
+							          <img class="carousel-img" src="/bootstrap/img/s3.png" alt="">
+							        </div>
+							        <div class="item">
+							          <img class="carousel-img" src="/bootstrap/img/s2.jpeg" alt="">
+							        </div>
+							        <div class="item">
+							          <img class="carousel-img" src="/bootstrap/img/s1.png" alt="">
+							        </div>
+							      </div>
+							    </div>
+								<!-- <img src="/bootstrap/img/s1.png" alt="profile1"></div> -->
+							</div>
+							<h1><span>Search Type 1 </span><span>Universidad</span></h1>
+						</div>
+						<div class="overlay"></div>
+					</div>
+
+					<div class="side side-right">
+						<div class="intro-content">
+							<div class="profile">
+								<div id="carousel2" class="carousel slide">
+							      <!-- Carousel items -->
+							      <div class="carousel-inner carousel-photo">
+							        <div class="active item">
+							          <img class="carousel-img" src="/bootstrap/img/s3.png" alt="">
+							        </div>
+							        <div class="item">
+							          <img class="carousel-img" src="/bootstrap/img/s2.jpeg" alt="">
+							        </div>
+							        <div class="item">
+							          <img class="carousel-img" src="/bootstrap/img/s1.png" alt="">
+							        </div>
+							      </div>
+							    </div>
+								<!-- <img src="/bootstrap/img/s2.jpeg" alt="profile2"> -->
+							</div>
+							<h1><span>Search Type 2 </span><span>Consulta</span></h1>
+						</div>
+						<div class="overlay"></div>
+					</div>
+				</div><!-- /intro -->
+
+
+				<div class="page page-right">
+					<div class="page-inner">
+						<div class="search-rigth">
+							<form class="form-search">
+								<label for="queryField2">Universidad a Buscar</label>
+									<div class="input-append">
+										<input type="text" id="query2" class="input-medium search-query">		
+										<button id="envio2" class="btn">Enviar</button>							  
+									</div>
+							</form>
+							<div id="messages2" class="container-fluid"></div>
+							<div id="result2" class="container-fluid"></div>
+						</div>
+						<!-- informacion pagina derecha     -->
+					</div><!-- /page-inner -->
+				</div><!-- /page-right -->
+				<div class="page page-left">
+					<div class="page-inner">						
+						<div class="search-left">
+							<form class="form-search">
+									<label for="queryField">Universidad a Buscar</label>
+									<div class="input-append">
+										<input type="text" id="query" class="input-medium search-query">		
+										<button id="envio" class="btn">Enviar</button>							  
+									</div>
+							</form>
+							<div id="messages" class="container-fluid"></div>
+							<div id="result" class="container-fluid"></div>
+						</div>
+						<!-- informacion pagina isquierda   -->
+					</div><!-- /page-inner -->
+				</div><!-- /page-left -->
+
+				<a href="#" class="back back-right" title="back to intro">&rarr;</a>
+				<a href="#" class="back back-left" title="back to intro">&larr;</a>
+			</div><!-- /splitlayout -->
+		</div><!-- /container -->
+		<script src="/bootstrap/js/classie.js"></script>
+		<script src="/bootstrap/js/cbpSplitLayout.js"></script>
+		<script type="text/javascript">
+		$(function(){
+			$('#envio').click(function(e){
+				e.preventDefault();
+				var data = {};
+				data.query = $('#query').val();
+
+				$.ajax({
+					type: 'POST',
+					contentType: 'application/json',
+					data: JSON.stringify(data),
+					dataType: 'json',
+					url: 'http://localhost:3000/',
+					success: function(data){
+						//var tweets = JSON.parse(data);
+						// console.log(data);
+						$('#messages').text(data.length+' Tweets Encontrados');
+						$('#result').empty();
+						$('#result').append('<div class="panel panel-default"><div class="panel-heading">Panel heading</div><div class="panel-body"><p>Resultados de los Tweets sobre la universidad buscada</p></div><table id="tweets" class="table table-bordered"><caption>Resultados</caption><thead><tr><th>Rnk</th><th>Tweet</th></tr></thead><tbody id="result-tweets"></tbody></table></div>');
+
+						for (var i = 0; i < data.length; i++) { 
+    						$('#result-tweets').append('<tr><td>'+(i+1)+'</td><td>'+data[i]+'</td></tr>');
+						}
+
+						console.log("success");
+						//console.log(tweets);
+					}
+				});
+
+			});
+
+			$('#envio2').click(function(e){
+				e.preventDefault();
+				var data = {};
+				data.query = $('#query2').val();
+
+				$.ajax({
+					type: 'POST',
+					contentType: 'application/json',
+					data: JSON.stringify(data),
+					dataType: 'json',
+					url: 'http://localhost:3000/',
+					success: function(data){
+						//var tweets = JSON.parse(data);
+						// console.log(data);
+						$('#messages2').text(data.length+' Tweets Encontrados');
+						$('#result2').empty();
+						$('#result2').append('<table id="tweets2" class="table table-bordered"><caption>Resultados</caption><thead><tr><th>Rnk</th><th>Tweet</th></tr></thead><tbody id="result-tweets2"></tbody></table>');
+
+						for (var i = 0; i < data.length; i++) { 
+    						$('#result-tweets2').append('<tr><td>'+(i+1)+'</td><td>'+data[i]+'</td></tr>');
+						}
+
+						console.log("success");
+						//console.log(tweets);
+					}
+				});
+
+			});
+		});
+
+		$('#carousel1').carousel({
+	        interval: 3000
+	    });
+	    $('#carousel2').carousel({
+	        interval: 3000
+	    });
+
+	</script>
+	</body>
+</html>
+
+
+
+
