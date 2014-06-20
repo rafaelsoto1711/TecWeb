@@ -6,3 +6,92 @@
 .carousel-photo{
 	border-radius: 50%;
 }
+
+.oculto{
+	visibility: hidden;
+}
+
+.tweet-box{
+	background-color: #000;
+}
+
+.table .tweets-box td {
+	color: #000;
+	padding: 10px;
+	font-family: 'Helvetica Neue',Arial,sans-serif;
+	font-size: 0.6em;
+	vertical-align: middle;
+}
+
+.positive td{
+	background-color: rgba(94, 168, 0, 0.55);;
+}
+
+.negative td{
+	background-color: #BD6161;
+}
+
+.neutral td{
+	background-color: #FFFFFF;
+}
+
+.text_tweet{
+	width: 80%;
+}
+
+.table #tweets{
+	text-align: center;
+}
+
+td:nth-child(4){
+	width: 10%;
+}
+
+ul.pager li.active a {
+	background-color: #9E1212;
+	color: #fff;
+}
+
+.pagination ul a{
+	border-radius: 0%;
+}
+
+.page-right a {
+	color: #133A52;
+	text-decoration: none;
+}
+
+.page-right .paginated .table-img {
+	width: 10%;
+}
+
+#result2{
+	padding-top: 20px;
+}
+
+.accordion-heading:hover {
+	background-color: #A4DCEE;
+}
+
+#envio{
+	width: auto;
+}
+
+.table thead th{
+	text-align: center;
+}
+
+#chart-box{
+	width: 450px;
+	height: 400px;
+	margin-left: 13%; 
+}
+
+#chart-box-modal{
+	display: none;
+}
+
+#chart-box-modal h3{
+	text-align: center;
+	color: #000;
+}

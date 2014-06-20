@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="/bootstrap/css/demo.css" />
 		<link rel="stylesheet" type="text/css" href="/bootstrap/css/component.css" />
 		<link rel="stylesheet" type="text/css" href="/bootstrap/css/home.css" />
+		<link rel="stylesheet" type="text/css" href="/bootstrap/css/jquery.jqplot.min.css" />
 		<script src="/bootstrap/js/jquery-2.1.1.min.js"></script>
 		<script src="/bootstrap/js/bootstrap.min.js"></script>
 		<script src="/bootstrap/js/modernizr.custom.js"></script>
@@ -83,7 +84,12 @@
 									</div>
 							</form>
 							<div id="messages2" class="container-fluid"></div>
-							<div id="result2" class="container-fluid"></div>
+							<div id="result2" class="container-fluid oculto">
+								<div class="panel panel-default" >
+									<div class="accordion" id="accordion2">
+									</div>
+								</div>
+							</div>
 						</div>
 						<!-- informacion pagina derecha     -->
 					</div><!-- /page-inner -->
@@ -91,15 +97,115 @@
 				<div class="page page-left">
 					<div class="page-inner">						
 						<div class="search-left">
-							<form class="form-search">
-									<label for="queryField">Universidad a Buscar</label>
-									<div class="input-append">
-										<input type="text" id="query" class="input-medium search-query">		
-										<button id="envio" class="btn">Enviar</button>							  
-									</div>
-							</form>
+							<div class="row">
+								<div class="span1">
+									<a href="#" id="chart_button" class="oculto"><img src="/bootstrap/img/chart.png" alt=""></a>
+								</div>
+								<div class="span8">
+									<form class="form-search">
+										<label for="queryField">Universidad a Buscar</label>
+										<div class="input-append">
+											<!-- <input type="text" id="query" class="input-medium search-query">		
+											<button id="envio" class="btn">Enviar</button>	 -->						  
+											<select class="form-control" id="envio">
+												<option value="0"> --- Seleccione una Universidad --- </option>
+												<option value="1">PONTIFICIA UNIVERSIDAD CATOLICA DE CHILE</option>
+												<option value="2">PONTIFICIA UNIVERSIDAD CATOLICA DE VALPARAISO</option>
+												<option value="4">UNIVERSIDAD ACADEMIA DE HUMANISMO CRISTIANO</option>
+												<option value="5">UNIVERSIDAD ADVENTISTA DE CHILE</option>
+												<option value="6">UNIVERSIDAD ALBERTO HURTADO</option>
+												<option value="7">UNIVERSIDAD ARTURO PRAT</option>
+												<option value="8">UNIVERSIDAD AUSTRAL DE CHILE</option>
+												<option value="9">UNIVERSIDAD AUTONOMA DE CHILE</option>
+												<option value="10">UNIVERSIDAD BERNARDO OHIGGINS</option>
+												<option value="11">UNIVERSIDAD BOLIVARIANA</option>
+												<option value="12">UNIVERSIDAD CATOLICA DE LA SANTISIMA CONCEPCION</option>
+												<option value="13">UNIVERSIDAD CATOLICA DE TEMUCO</option>
+												<option value="14">UNIVERSIDAD CATOLICA DEL MAULE</option>
+												<option value="15">UNIVERSIDAD CATOLICA DEL NORTE</option>
+												<option value="16">UNIVERSIDAD CATOLICA SILVA HENRIQUEZ</option>
+												<option value="17">UNIVERSIDAD CENTRAL DE CHILE</option>
+												<option value="18">UNIVERSIDAD CHILENO BRITANICA DE CULTURA</option>
+												<option value="19">UNIVERSIDAD DE ACONCAGUA</option>
+												<option value="20">UNIVERSIDAD DE ANTOFAGASTA</option>
+												<option value="21">UNIVERSIDAD DE ARTE Y CIENCIAS SOCIALES ARCIS</option>
+												<option value="22">UNIVERSIDAD DE ARTES, CIENCIAS Y COMUNICACION - UNIACC</option>
+												<option value="23">UNIVERSIDAD DE ATACAMA</option>
+												<option value="24">UNIVERSIDAD DE CHILE</option>
+												<option value="25">UNIVERSIDAD DE CONCEPCION</option>
+												<option value="26">UNIVERSIDAD DE LA FRONTERA</option>
+												<option value="27">UNIVERSIDAD DE LA SERENA</option>
+												<option value="28">UNIVERSIDAD DE LAS AMERICAS</option>
+												<option value="29">UNIVERSIDAD DE LOS ANDES</option>
+												<option value="30">UNIVERSIDAD DE LOS LAGOS</option>
+												<option value="31">UNIVERSIDAD DE MAGALLANES</option>
+												<option value="32">UNIVERSIDAD DE PLAYA ANCHA DE CIENCIAS DE LA EDUCACION</option>
+												<option value="33">UNIVERSIDAD DE SANTIAGO DE CHILE</option>
+												<option value="34">UNIVERSIDAD DE TALCA</option>
+												<option value="35">UNIVERSIDAD DE TARAPACA</option>
+												<option value="36">UNIVERSIDAD DE VALPARAISO</option>
+												<option value="37">UNIVERSIDAD DEL BIO-BIO</option>
+												<option value="38">UNIVERSIDAD DEL DESARROLLO</option>
+												<option value="39">UNIVERSIDAD DEL MAR</option>
+												<option value="40">UNIVERSIDAD DEL PACIFICO</option>
+												<option value="41">UNIVERSIDAD DIEGO PORTALES</option>
+												<option value="42">UNIVERSIDAD FINIS TERRAE</option>
+												<option value="43">UNIVERSIDAD GABRIELA MISTRAL</option>
+												<option value="44">UNIVERSIDAD IBEROAMERICANA DE CIENCIAS Y TECNOLOGIA, UNICYT</option>
+												<option value="45">UNIVERSIDAD INTERNACIONAL SEK</option>
+												<option value="46">UNIVERSIDAD LOS LEONES</option>
+												<option value="47">UNIVERSIDAD MAYOR</option>
+												<option value="48">UNIVERSIDAD METROPOLITANA DE CIENCIAS DE LA EDUCACION</option>
+												<option value="49">UNIVERSIDAD MIGUEL DE CERVANTES</option>
+												<option value="50">UNIVERSIDAD NACIONAL ANDRES BELLO</option>
+												<option value="51">UNIVERSIDAD PEDRO DE VALDIVIA</option>
+												<option value="52">UNIVERSIDAD SAN SEBASTIAN</option>
+												<option value="53">UNIVERSIDAD SANTO TOMAS</option>
+												<option value="54">UNIVERSIDAD TECNICA FEDERICO SANTA MARIA</option>
+												<option value="55">UNIVERSIDAD TECNOLOGICA DE CHILE INACAP</option>
+												<option value="56">UNIVERSIDAD TECNOLOGICA METROPOLITANA</option>
+												<option value="57">UNIVERSIDAD UCINF</option>
+												<option value="58">UNIVERSIDAD ADOLFO IBAÑEZ</option>
+											</select>
+										</div>
+									</form>
+								</div>
+							</div>
 							<div id="messages" class="container-fluid"></div>
-							<div id="result" class="container-fluid"></div>
+							<div id="result" class="container-fluid oculto">
+								<div class="panel panel-default" >
+									<table id="tweets" class="table paginated">
+										<thead>
+											<tr>
+												<th>Rank</th>
+												<th>User</th>
+												<th>Tweet</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody id="result-tweets" class="tweets-box">
+											
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<div class="modal fade" id="chart-box-modal" tabindex="-1" role="dialog" aria-hidden="false" >
+						      <div class="modal-dialog modal-lg">
+						        <div class="modal-content">
+						          <div class="modal-header">
+						          	<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×
+						          </button>
+						          	<h3>Gráfica clasificación tweets</h3>
+						          </div>
+						          <div class="modal-body" id="chart-box">
+
+						          </div>     
+
+						            <div class="modal-footer"><!-- .modal-footer -->
+						            </div> <!-- /.modal-footer -->
+						        </div><!-- /.modal-content -->
+						      </div><!-- /.modal-dialog -->
+						    </div>
 						</div>
 						<!-- informacion pagina isquierda   -->
 					</div><!-- /page-inner -->
@@ -111,29 +217,116 @@
 		</div><!-- /container -->
 		<script src="/bootstrap/js/classie.js"></script>
 		<script src="/bootstrap/js/cbpSplitLayout.js"></script>
+		<script src="/bootstrap/js/jquery.jqplot.min.js"></script>
+		<script src="/bootstrap/js/jqplot.pieRenderer.min.js"></script>
 		<script type="text/javascript">
+		var glob;
+		function muestra(i){
+	      a = i.parentElement.nextElementSibling.firstElementChild.firstElementChild;
+	      glob = a;
+	      console.log(i);
+	      paginate(i.parentElement.nextElementSibling.firstElementChild.firstElementChild);
+	      $(".collapse").collapse('hide');
+	      $("#"+i.parentElement.nextElementSibling.id).collapse('show');
+	    }
+
+	    function muestra2(i){
+	      a = i.parentElement.nextElementSibling.firstElementChild.firstElementChild;
+	      a.nextElementSibling.remove();
+	      paginate(i.parentElement.nextElementSibling.firstElementChild.firstElementChild);
+	      $(".collapse").collapse('hide');
+	      $("#"+i.parentElement.nextElementSibling.id).collapse('show');
+	    }
+
+	    
+
+		function noPhoto(img){
+			img.src = "/bootstrap/img/icon-user-default.png";
+		}
+
+
+
+		var data_left = [];
+
+
+
 		$(function(){
-			$('#envio').click(function(e){
+
+			$('#chart_button').click(function(e){
+				// alert('positive: '+data_left.positive+'\n'+'negative: '+data_left.negative+'\n'+'neutral: '+data_left.neutral);
+				$('#chart-box-modal').modal({backdrop: false});
+			    jQuery.jqplot.config.enablePlugins = true;
+				$('#chart-box').empty();
+				var data_plot = [
+			    ['Positivos', data_left.positive],
+			    ['Negativos', data_left.negative], 
+			    ['Neutrales', data_left.neutral]];
+
+			  	var plot1 = jQuery.jqplot ('chart-box', [data_plot], 
+			    {
+			    	seriesColors: ["#21610B","#B40404","#FFFF00"],
+			    	title: ' ', 
+			        seriesDefaults: {
+			        	shadow: false, 
+			        	renderer: jQuery.jqplot.PieRenderer, 
+			        	rendererOptions: { padding: 2, sliceMargin: 2, showDataLabels: false }}, 
+			            legend: { show:true, location: 's', yoffset: 30 }
+			    }
+			    );
+
+
+			  	
+
+
+			});
+
+			$('#envio').change(function(e){
 				e.preventDefault();
 				var data = {};
-				data.query = $('#query').val();
+				data.query = this.value;
 
 				$.ajax({
 					type: 'POST',
 					contentType: 'application/json',
 					data: JSON.stringify(data),
 					dataType: 'json',
-					url: 'http://localhost:3000/',
+					url: '/',
 					success: function(data){
 						//var tweets = JSON.parse(data);
-						// console.log(data);
 						$('#messages').text(data.length+' Tweets Encontrados');
-						$('#result').empty();
-						$('#result').append('<div class="panel panel-default"><div class="panel-heading">Panel heading</div><div class="panel-body"><p>Resultados de los Tweets sobre la universidad buscada</p></div><table id="tweets" class="table table-bordered"><caption>Resultados</caption><thead><tr><th>Rnk</th><th>Tweet</th></tr></thead><tbody id="result-tweets"></tbody></table></div>');
-
+						$('#result-tweets').empty();
+						$('.pagination').remove();
+						$('#result').removeClass('oculto');
+						$table = $('#tweets');
+						var pos = 0;
+						var neg = 0;
+						var neu = 0;
 						for (var i = 0; i < data.length; i++) { 
-    						$('#result-tweets').append('<tr><td>'+(i+1)+'</td><td>'+data[i]+'</td></tr>');
+							var sent = '';
+							var backSent = '';
+							if(data[i]['sentimiento']=='Positivo'){
+								sent = '<i class="icon-thumbs-up"></i>';
+								backSent = ' class="positive"';
+								pos++;
+							}else if (data[i]['sentimiento']=='Negativo') {
+								sent = '<i class="icon-thumbs-down"></i>';
+								backSent = ' class="negative"';
+								neg++;
+							}else{
+								sent = '<i class="icon-question-sign"></i>';
+								backSent = ' class="neutral"';
+								neu++;
+							}
+
+    						$('#result-tweets').append('<tr '+backSent+'><td>'+(i+1)+'</td><td><img src="'+data[i]['photo']+'" alt="usuario" onError="noPhoto(this)"></td><td class="text_tweet">'+data[i]['text_tweet']+'</td><td><ul class="unstyled"><li><i class="icon-retweet"></i>  '+ data[i]['retweets']+'</li><li><i class="icon-user"></i>  '+data[i]['num_user_followers']+'</li><li><i class="icon-heart"></i>  '+sent+'</li></ul></td></tr>');
 						}
+
+						data_left.positive = pos;
+						data_left.negative = neg;
+						data_left.neutral = neu;
+						console.log(data_left);
+						paginate($table);
+						$('#chart_button').removeClass('oculto');
 
 						console.log("success");
 						//console.log(tweets);
@@ -142,6 +335,7 @@
 
 			});
 
+			var data_right = [];
 			$('#envio2').click(function(e){
 				e.preventDefault();
 				var data = {};
@@ -152,19 +346,45 @@
 					contentType: 'application/json',
 					data: JSON.stringify(data),
 					dataType: 'json',
-					url: 'http://localhost:3000/',
+					url: '/query',
 					success: function(data){
-						//var tweets = JSON.parse(data);
-						// console.log(data);
-						$('#messages2').text(data.length+' Tweets Encontrados');
-						$('#result2').empty();
-						$('#result2').append('<table id="tweets2" class="table table-bordered"><caption>Resultados</caption><thead><tr><th>Rnk</th><th>Tweet</th></tr></thead><tbody id="result-tweets2"></tbody></table>');
+						$('#result2').removeClass('oculto');
+						$('#accordion2').empty();
+						console.log(data);
+						var counter = 0;
+						for(i in data){
 
-						for (var i = 0; i < data.length; i++) { 
-    						$('#result-tweets2').append('<tr><td>'+(i+1)+'</td><td>'+data[i]+'</td></tr>');
+							var t1 = '<div class="accordion-group"><div class="accordion-heading"><a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#col-'+counter+'"  onclick="muestra2(this)">'+i+'</a></div><div id="col-'+counter+'" class="accordion-body collapse in"><div class="accordion-inner"><table id="tweets'+counter+'" class="table paginated"><caption>Resultados</caption><thead><tr><th>Rnk</th><th></th><th>Tweet</th><th></th></tr></thead><tbody id="result-tweets-'+counter+'" class="tweets-box">'
+
+							for (var j = 0; j < data[i].length; j++) { 
+								var sent = '';
+								var backSent = '';
+								if(data[i][j]['sentimiento']=='Positivo'){
+									sent = '<i class="icon-thumbs-up"></i>';
+									backSent = ' class="positive"';
+								}else if (data[i][j]['sentimiento']=='Negativo') {
+									sent = '<i class="icon-thumbs-down"></i>';
+									backSent = ' class="negative"';
+								}else{
+									sent = '<i class="icon-question-sign"></i>';
+									backSent = ' class="neutral"';
+								}
+
+								var res = '<tr '+backSent+'><td>'+(j+1)+'</td><td class="table-img"><img src="'+data[i][j]['photo']+'" alt="usuario" onError="noPhoto(this)"></td><td class="text_tweet">'+data[i][j]['text_tweet']+'</td><td><ul class="unstyled"><li><i class="icon-retweet"></i>  '+ data[i][j]['retweets']+'</li><li><i class="icon-user"></i>  '+data[i][j]['num_user_followers']+'</li><li><i class="icon-heart"></i>  '+sent+'</li></ul></td></tr>';
+								t1 += res;
+							}
+
+							t1 += '</tbody></table></div></div></div>';
+							$('#accordion2').append(t1);
+							counter++;
+
 						}
-
 						console.log("success");
+						for (var i = 0; i < counter; i++) {
+							var $table_tweets = $('#tweets'+i);
+							paginate($table_tweets);
+						};
+						$(".collapse").collapse();
 						//console.log(tweets);
 					}
 				});
@@ -178,6 +398,60 @@
 	    $('#carousel2').carousel({
 	        interval: 3000
 	    });
+
+
+    function paginate(i){
+      var currentPage = 0;
+      var numPerPage = 10;
+      var $table = $(i);
+      $table.bind('repaginate', function() {
+          $table.find('tbody tr').hide().slice(currentPage * numPerPage, (currentPage + 1) * numPerPage).show();
+      });
+      $table.trigger('repaginate');
+      var numRows = $table.find('tbody tr').length;
+      var numPages = Math.ceil(numRows / numPerPage);
+
+
+      var $pager = $('<ul class="pager"></ul>');
+      var $divpager = $('<div class="pagination pagination-small pagination-centered"></div>');
+      var $prev = $('<li><a href="#">Prev</a></li>').bind('click', function(event) {
+              if (currentPage > 0) {
+                currentPage = currentPage - 1;
+                var $temp = $('ul.pager li:nth-child('+(currentPage+2)+')');
+                $('ul.pager li').removeClass('active');
+                $temp.addClass('active');
+              }
+              $table.trigger('repaginate');
+          }).addClass('clickable');
+
+      var $next = $('<li><a href="#">Next</a></li>').bind('click', function(event) {
+              if (currentPage < (numPages-1)) {
+                currentPage = currentPage + 1; 
+                var $temp = $('ul.pager li:nth-child('+(currentPage+2)+')');
+                $('ul.pager li').removeClass('active');
+                $temp.addClass('active'); 
+              }
+              
+              $table.trigger('repaginate');
+          }).addClass('clickable');
+
+
+      $pager.append($prev);
+      for (var page = 0; page < numPages; page++) {
+          var $li = $('<li class="page-number"></li>');
+          $('<a href="#"></a>').text(page + 1).bind('click', {
+              newPage: page
+          }, function(event) {
+              currentPage = event.data['newPage'];
+              $table.trigger('repaginate');
+              $(this).parent().addClass('active').siblings().removeClass('active');
+          }).appendTo($li).addClass('clickable');
+          $li.appendTo($pager);
+      }
+      $pager.append($next);
+      $divpager.append($pager);
+      $divpager.insertAfter($table).find('li.page-number:first').addClass('active');
+    }
 
 	</script>
 	</body>

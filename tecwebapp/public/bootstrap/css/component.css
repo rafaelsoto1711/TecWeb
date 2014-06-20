@@ -188,7 +188,7 @@ body {
 	left: 25%;
 	outline: 5px solid #ecf0f1; /* avoid rounding gaps */
 	background: #ecf0f1;
-	color: #97a8b2;
+	color: #133A52;
 	-webkit-transform: translateX(100%);
 	transform: translateX(100%);
 }
@@ -199,8 +199,8 @@ body {
 
 .page-left {
 	left: 0;
-	outline: 5px solid #34495e; /* avoid rounding gaps */
-	background: #34495e;
+	outline: 5px solid rgba(192, 194, 184, 0.87);; /* avoid rounding gaps */
+	background: rgba(192, 194, 184, 0.87);;
 	color: #fff;
 	text-align: right;
 	-webkit-transform: translateX(-100%);
@@ -208,7 +208,7 @@ body {
 }
 
 .splitlayout.open-left {
-	background: #34495e;
+	background: rgba(192, 194, 184, 1);
 }
 
 /* Inner page content */
@@ -461,3 +461,6 @@ body {
 @media screen and (max-width: 320px) {
 	body { font-size: 70%; }
 }
+
+
+#133A52  97a8b2
