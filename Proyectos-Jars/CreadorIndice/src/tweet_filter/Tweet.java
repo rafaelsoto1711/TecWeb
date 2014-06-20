@@ -8,13 +8,15 @@ public class Tweet {
 	public String user;
 	public String date;
 	public String keyword;
+	public String photo;
 	public int sentimiento;
 	public int followers;
 	public int retweets;
+	
 
 	
 	public Tweet(long id, String tweet, String user, String date,
-			String keyword, int sentimiento, int followers, int retweets) {
+			String keyword, int sentimiento, int followers, int retweets, String photo) {
 		super();
 		this.id = id;
 		this.tweet = tweet;
@@ -24,12 +26,19 @@ public class Tweet {
 		this.sentimiento = sentimiento;
 		this.followers = followers;
 		this.retweets = retweets;
+		this.photo = photo;
 	}
 
 
 	
 	public Tweet() {
 		super();
+	}	
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 	public long getId() {
 		return id;

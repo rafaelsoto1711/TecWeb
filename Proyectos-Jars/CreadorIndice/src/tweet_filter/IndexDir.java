@@ -8,6 +8,7 @@ import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.core.KeywordAnalyzer;
@@ -32,8 +33,9 @@ import org.apache.lucene.util.Version;
 public class IndexDir {
   
 	static ArrayList<Tweet> array = new ArrayList<Tweet>();
-		
+	
 	public static void main(String[] args) {
+	    //String dirIndex = "/app/invIndex/IR"; //path donde se guardarán los índices invertidos en disco
 	    String dirIndex = "/Users/macbookpro15/Documents/Magister/TecnologiasWeb/buscador/App/tecweb/IR"; //path donde se guardarán los índices invertidos en disco
 	    try{
 	    	ConexionMongo nueva = new ConexionMongo();
@@ -47,7 +49,7 @@ public class IndexDir {
 	    	//Analyzer analyzer = new SpanishAnalyzer(Version.LUCENE_47);
 	    	IndexWriterConfig indexWriter = new IndexWriterConfig(Version.LUCENE_47, perFieldAnalyzer);
 	    	System.out.println("create");
-	    	indexWriter.setRAMBufferSizeMB(2048.0);
+	    	//indexWriter.setRAMBufferSizeMB(2048.0);
 	    	indexWriter.setOpenMode(OpenMode.CREATE);
 	    	IndexWriter writer = new IndexWriter(dir, indexWriter);//se escribe el índice en el path configurado
 	    	indexDocs(writer);
@@ -71,23 +73,26 @@ public class IndexDir {
 	
 	static void indexDocs(IndexWriter writer) throws IOException{
 		long start = new Date().getTime();
-		float rankRetweet = ordenaRetweet();
+		float rankRetweet = (float) Math.log(ordenaRetweet());
 		float rankFollowers = ordenaFollowers();
+		int j=1;
 		System.out.println(rankFollowers);
 			for(Tweet tweet : array){
-				float rank = tweet.getRetweets()/rankRetweet;
-	        	Document doc = new Document();
-	        	doc.add(new LongField("id", Long.parseLong((String.valueOf(tweet.getId()))),Field.Store.YES));
-	        	doc.add(new TextField("tweet", String.valueOf(tweet.getTweet()),Field.Store.YES));
-	        	doc.add(new TextField("user_name", String.valueOf(tweet.getUser()),Field.Store.YES));
-	        	doc.add(new TextField("date_tweet", String.valueOf(tweet.getDate()),Field.Store.YES));
-	        	doc.add(new TextField("keyword", String.valueOf(tweet.getKeyword()),Field.Store.YES));
-	        	doc.add(new IntField("sentimiento", tweet.getSentimiento(),Field.Store.YES));
-	        	doc.add(new FloatField("ranking", rank,Field.Store.YES));
-	        	doc.add(new IntField("followers", tweet.getFollowers(),Field.Store.YES));
-	        	doc.add(new IntField("indxRetweet", tweet.getRetweets(),Field.Store.YES));
-	            //System.out.println("Idexando tweet: " + tweet.getTweet());
-	            writer.addDocument(doc);
+				StringTokenizer tokens=new StringTokenizer(String.valueOf(tweet.getTweet())," ");
+	        		float rank = (float) (0.9*(tweet.getRetweets()/rankRetweet)+0.1*(tweet.getFollowers()/rankFollowers));
+		        	Document doc = new Document();
+		        	doc.add(new LongField("id", Long.parseLong((String.valueOf(tweet.getId()))),Field.Store.YES));
+		        	doc.add(new TextField("tweet", String.valueOf(tweet.getTweet()),Field.Store.YES));
+		        	doc.add(new TextField("user_name", String.valueOf(tweet.getUser()),Field.Store.YES));
+		        	doc.add(new TextField("date_tweet", String.valueOf(tweet.getDate()),Field.Store.YES));
+		        	doc.add(new TextField("keyword", String.valueOf(tweet.getKeyword()),Field.Store.YES));
+		        	doc.add(new IntField("sentimiento", tweet.getSentimiento(),Field.Store.YES));
+		        	doc.add(new FloatField("ranking", rank,Field.Store.YES));
+		        	doc.add(new IntField("followers", tweet.getFollowers(),Field.Store.YES));
+		        	doc.add(new IntField("indxRetweet", tweet.getRetweets(),Field.Store.YES));
+		        	doc.add(new TextField("photo", String.valueOf(tweet.getPhoto()),Field.Store.YES));
+		            //System.out.println("Idexando tweet: " + tweet.getTweet());
+		            writer.addDocument(doc);
 			}
 		long end = new Date().getTime();
 		System.out.println("Indexación demoró: "+(end-start)*0.001+"(s)");

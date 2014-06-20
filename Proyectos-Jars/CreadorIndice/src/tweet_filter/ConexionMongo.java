@@ -27,6 +27,9 @@ public class ConexionMongo {
 	public ArrayList<Tweet> readFilterAndOutput(String host_database, int port_database, String db_name, String collection_name) throws FileNotFoundException {
 
 		MongoClient mongo;
+		String dataFile = "/Users/macbookpro15/Documents/Magister/TecnologiasWeb/buscador/App/tecweb/jars/trainData.txt";
+		String stopwordFile = "/Users/macbookpro15/Documents/Magister/TecnologiasWeb/buscador/App/tecweb/jars/stopwords.txt";
+		clasificador c = new clasificador(dataFile, stopwordFile);
 		
 		DBCollection coll = null;
 			try {
@@ -55,9 +58,10 @@ public class ConexionMongo {
 		    			   String.valueOf(jsonObjeto.get("user_name")),
 		    			   String.valueOf(jsonObjeto.get("date_tweet")),
 		    			   String.valueOf(jsonObjeto.get("keyword")),
-		    			   1,
+		    			   c.classifySingleTerm(String.valueOf(jsonObjeto.get("text_tweet"))),
 		    			   Integer.parseInt(String.valueOf(jsonObjeto.get("num_user_followers"))),
-		    			   Integer.parseInt(String.valueOf(jsonObjeto.get("num_retweet"))));
+		    			   Integer.parseInt(String.valueOf(jsonObjeto.get("num_retweet"))),
+		    			   String.valueOf(jsonObjeto.get("url_image_profile")));
 		    	   //System.out.println(jsonObjeto.get("text_tweet"));
 		    	   tweets.add(Tweets);
 		       }
