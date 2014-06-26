@@ -26,27 +26,26 @@ public class clasificador {
 		stopwordFilter.setCaseSensitive(false);
 		stopwordFilter.addStopWords(stoplistFile);
 		
-		/* Creamos el pipe que va a filtrar la informaci—n leida  */
+		/* Creamos el pipe que va a filtrar la informaciï¿½n leida  */
 		
 		this.instancePipe = new SerialPipes (new Pipe[] {
-				new Target2Label (),							  // Target String -> class label
-				new Input2CharSequence (),				  // Data File -> String containing contents
-				new CharSequence2TokenSequence (),  // Data String -> TokenSequence
-				new TokenSequenceLowercase (),		  // TokenSequence words lowercased
-				//new TokenSequenceRemoveStopwords (),// Remove stopwords from sequence
+				new Target2Label (),							  
+				new Input2CharSequence (),				  
+				new CharSequence2TokenSequence (),  
+				new TokenSequenceLowercase (),		  
 				stopwordFilter,
-				new TokenSequence2FeatureSequence(),// Replace each Token with a feature index
-				new FeatureSequence2FeatureVector(),// Collapse word order into a "feature vector"
+				new TokenSequence2FeatureSequence(),
+				new FeatureSequence2FeatureVector(),"
 			});
 		
-		/* creamos la lista de instancias usando el p’pe anterior y la informaci—n del archivo de datos de entrenamiento */
+		/* creamos la lista de instancias usando el pï¿½pe anterior y la informaciï¿½n del archivo de datos de entrenamiento */
 		InstanceList instances = new InstanceList (instancePipe);
 		instances.addThruPipe(new CsvIterator(this.dataFile,
                 "(\\w+)\\s+(\\w+)\\s+(.*)",
                 3, 2, 1)  // (data, target, name) field indices                    
 				);
 		
-		/* creaci—n del entrenador para el clasificador NaiveBayes y posterior entrenamiento */
+		/* creaciï¿½n del entrenador para el clasificador NaiveBayes y posterior entrenamiento */
 		ClassifierTrainer naiveBayesTrainer = new NaiveBayesTrainer();
 		this.c = naiveBayesTrainer.train (instances);
 		
@@ -57,7 +56,7 @@ public class clasificador {
 		
 		/* creacion de lista de instancias de prueba.
 		 * Las instancias de prueba tienen la misma forma de las instancias de entrenamiento, con lo que
-		 * podemos confirmar que la clasificaci—n obtenida fue acertada */
+		 * podemos confirmar que la clasificaciï¿½n obtenida fue acertada */
 		InstanceList test = new InstanceList(this.instancePipe);
 		test.addThruPipe(new CsvIterator(testDataFile,
                 "(\\w+)\\s+(\\w+)\\s+(.*)",
@@ -71,7 +70,7 @@ public class clasificador {
 			if (cf.getLabeling().getBestLabel() == inst.getLabeling().getBestLabel())
 				numCorrect++;
 		}
-		System.out.println ("Precisi—n del clasificador en conjunto prueba = " + ((double)numCorrect)/test.size());
+		System.out.println ("Precisiï¿½n del clasificador en conjunto prueba = " + ((double)numCorrect)/test.size());
 		
 		
 	}
